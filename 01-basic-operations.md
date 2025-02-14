@@ -100,6 +100,12 @@
     terraform apply -auto-approve
     ```
 
+  - Destroying resources
+
+    ```
+    terraform apply -destroy
+    ```
+
   - Suppress ASCII color code from the plan output which makes the plan output readable in automation tools
  
     ```
