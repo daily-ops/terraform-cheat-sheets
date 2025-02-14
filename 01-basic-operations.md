@@ -67,3 +67,9 @@
     ```
     terraform plan -refresh-only
     ```
+
+  - Adjust concurrent processing in plan operation, by default 10 processes can be run concurrently. 
+  
+    ```
+    terraform plan -parallelism=5
+    ```
