@@ -73,3 +73,42 @@
     ```
     terraform plan -parallelism=5
     ```
+
+## The `apply` command.
+  
+  - Process terraform configuration files and generate apply output
+
+    ```
+    terraform apply
+    ```
+
+  - Using generated plan file, it also works with the destroy plan.
+
+    ```
+    terraform apply xxxxxxx.tfplan
+    ```
+
+  - Supply variables to the apply operation
+
+    ```
+    terraform apply -var "name=value"
+    ```
+
+  - Automatically approve the apply operaition, usually terraform will ask to confirm the apply operation with a prompt to say yes or no
+
+    ```
+    terraform apply -auto-approve
+    ```
+
+  - Suppress ASCII color code from the plan output which makes the plan output readable in automation tools
+ 
+    ```
+    terraform apply -no-color
+    ```
+    
+  - Adjust concurrent processing in plan operation, by default 10 processes can be run concurrently. For example if there are 20 resources in the terrafomr configuration files without any dependency between each other, 10 of them will be processed concurrently. It may overwhelm the remote server by having too many intensive resource provisioning requests, or hitting API rate limit, or causing too many operations on client itself.
+  
+    ```
+    terraform apply -parallelism=5
+    ```
+    
