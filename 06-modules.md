@@ -38,3 +38,76 @@ Modules are reusable terraform codes. They can take variables to adjust the beha
 - The default inheriting providers can be overriden by using `providers` meta-argument with an assigned alias. 
 - Additional meta-arguments such as `depends_on`, `count`, `for_each` are supported.
 - Public module registry `registry.terraform.io`. Private ones can be setup.
+- Version of the providers constraint may cause conflict. This sample below won't work.
+
+  ```
+  terraform {
+    required_providers {
+      aws = {
+        source = "hashicorp/aws"
+        version = ">= 5.21.0, <= 5.30.0"
+      }
+    }
+  }
+  
+  provider "aws" {
+    alias = "xxx"
+    region = "ap-southeast-2"
+  }
+  
+  module "test" {
+    source = "./tests"
+    providers = {
+      test = aws.xxx
+    }
+  }
+  
+  output "account_id" {
+    value = module.test.account_id
+  }
+  
+  output "caller_arn" {
+    value = module.test.caller_arn
+  }
+  
+  output "caller_user" {
+    value = module.test.caller_user
+  }
+  ```
+
+  ```
+  terraform {
+    required_providers {
+      test = {
+        source = "hashicorp/aws"
+        version = ">= 5.1.0, <= 5.20.0"
+      }
+    }
+  }
+  
+  
+  data "aws_caller_identity" "current" {
+    provider = test
+  }
+  
+  output "account_id" {
+    value = data.aws_caller_identity.current.account_id
+  }
+  
+  output "caller_arn" {
+    value = data.aws_caller_identity.current.arn
+  }
+  
+  output "caller_user" {
+    value = data.aws_caller_identity.current.user_id
+  }
+  ```
+
+  ```
+  terraform plan
+  ╷
+  │ Error: Inconsistent dependency lock file
+  │ 
+  │ The following dependency selections recorded in the lock file are inconsistent with the current configuration:
+  │   - provider registry.terraform.io/hashicorp/aws: locked version selection 5.20.0 doesn't match the updated version constraints ">= 5.1.0, <= 5.20.0, >= 5.21.0, <= 5.30.0"
+  ```
