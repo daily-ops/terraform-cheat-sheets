@@ -6,7 +6,7 @@
     terraform init
     ```
 
-  - Upgrade existing modules and providers
+  - Upgrade/Downgrade existing modules and providers
 
     ```
     terraform init -upgrade
