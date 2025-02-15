@@ -111,3 +111,5 @@ Modules are reusable terraform codes. They can take variables to adjust the beha
   │ The following dependency selections recorded in the lock file are inconsistent with the current configuration:
   │   - provider registry.terraform.io/hashicorp/aws: locked version selection 5.20.0 doesn't match the updated version constraints ">= 5.1.0, <= 5.20.0, >= 5.21.0, <= 5.30.0"
   ```
+
+- The `moved` block is supported to move resource into module when refactoring. Using `terraform plan` to find the destination resource address.
