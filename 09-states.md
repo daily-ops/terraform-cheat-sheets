@@ -74,3 +74,4 @@ Ways to manipulate the state of Terraform resources.
   ```
   terraform state replace-provider hashicorp/aws registry.acme.corp/acme/aws
   ```
+- Edit the `.tfstate` file directly which is not recommended.
