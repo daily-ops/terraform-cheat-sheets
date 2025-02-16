@@ -15,3 +15,4 @@ An excerpt from [HashiCorp document](https://developer.hashicorp.com/terraform/l
   ```
 
 - Supports meta-argument, such as `provider`, `count`, `for_each`, `lifecycle` argument are supported.
+- Datasources are executed during **plan** operation, actual API calls are made to retrieve data.
