@@ -33,3 +33,31 @@ Terraform makes use of `providers` as plugins components in which contains the i
     # ...
   }
   ```
+
+- With multiple configuration blocks of the same type, aliases are required. The provider block without alias becomes default provider of the type.
+
+  ```
+  provider "aws" {
+    region = "ap-southeast-2"
+  }
+  
+  provider "aws" {
+    alias = "xxx"
+    region = "ap-southeast-1"
+  }
+  ```
+
+- Resources or Datasources of the provider type can choose to associate with specific provider block through `provider` argument and set with the `<TYPE>.<ALIAS NAME>` otherwise implicit default provider will be assumed.
+
+  ```
+  resource "aws_instance" "web" {
+    provider = aws.xxx
+  }
+  ```
+
+  ```
+  data "aws_caller_identity" "current" {
+    provider = aws.xxx
+  }
+  ```
+  
