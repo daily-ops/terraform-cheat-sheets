@@ -1,5 +1,7 @@
 The `terraform_remote_state` resource can be used to retrieve data populated.
-The [Get Started VPC](https://github.com/daily-ops/quick-start-aws-lambda-and-s3-with-terraform) demonstrates the use of remote state where each component can be maintained by different team.
+The [Get Started VPC](https://github.com/daily-ops/quick-start-aws-lambda-and-s3-with-terraform) demonstrates the use of remote state where each component can be maintained by different team. The backend can be other supported [backend](https://developer.hashicorp.com/terraform/language/backend) type such as s3, and etc. 
+
+Quick to note that accessing the state in HCP Terraform Cloud Workspaces will require [tfe_workspace](https://registry.terraform.io/providers/hashicorp/tfe/latest/docs/data-sources/workspace) datasource. There is also a comprehensive guide available [here](https://support.hashicorp.com/hc/en-us/articles/1500008832622-Accessing-A-Workspace-s-State-Data)
 
 ```
 data "terraform_remote_state" "vpc" {
